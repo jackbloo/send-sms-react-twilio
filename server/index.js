@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const pino = require('express-pino-logger')();
 const client = require('twilio')(
   process.env.TWILIO_ACCOUNT_SID,
@@ -10,6 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
+app.use(cors())
 
 app.get('/api/greeting', (req, res) => {
   const name = req.query.name || 'World';
